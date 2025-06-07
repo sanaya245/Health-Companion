@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Selection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .question-title {
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        
+        .workout-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .workout-card {
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .workout-card:hover {
+            background-color: #f0f8ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .workout-card.selected {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        .workout-card.selected:hover {
+            background-color: #45a049;
+        }
+        
+        .workout-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+        
+        .workout-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .workout-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .workout-card.selected .workout-description {
+            color: #e8f5e8;
+        }
+        
+        .custom-workout {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .custom-workout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .custom-input {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .custom-workout.selected .custom-input {
+            display: block;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 60px;
+        }
+        
+        .btn {
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .btn.primary {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        .btn.primary:hover {
+            background-color: #45a049;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .selection-summary {
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+        }
+        
+        .selection-summary.visible {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .workout-options {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .workout-card {
+                padding: 20px 15px;
+                min-height: 120px;
+            }
+            
+            .workout-icon {
+                font-size: 36px;
+            }
+            
+            .workout-name {
+                font-size: 16px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="question-title">
+                What would you like to work on today?
+            </div>
+        </div>
+        
+        <div class="workout-options">
+            <div class="workout-card" data-workout="planks">
+                <div class="workout-icon">🏋️</div>
+                <div class="workout-name">Planks</div>
+                <div class="workout-description">Core strengthening exercise</div>
+            </div>
+            
+            <div class="workout-card" data-workout="stairmaster">
+                <div class="workout-icon">🏃</div>
+                <div class="workout-name">Stairmaster</div>
+                <div class="workout-description">Cardio endurance training</div>
+            </div>
+            
+            <div class="workout-card" data-workout="pushups">
+                <div class="workout-icon">💪</div>
+                <div class="workout-name">Push-ups</div>
+                <div class="workout-description">Upper body strength</div>
+            </div>
+            
+            <div class="workout-card" data-workout="stairmaster2">
+                <div class="workout-icon">🚶</div>
+                <div class="workout-name">Stairmaster</div>
+                <div class="workout-description">Interval training</div>
+            </div>
+            
+            <div class="workout-card custom-workout" data-workout="custom">
+                <div class="workout-icon">✨</div>
+                <div class="workout-name">Add My Own</div>
+                <div class="workout-description">Create custom workout</div>
+                <input type="text" class="custom-input" placeholder="Enter your custom workout..." />
+            </div>
+        </div>
+        
+        <div class="selection-summary" id="selectionSummary">
+            <h3>Selected Workout:</h3>
+            <p id="selectedWorkout">None selected</p>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn" onclick="goBack()">← Back</button>
+            <button class="btn primary" id="startBtn" onclick="startWorkout()" disabled>Start Workout</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedWorkouts = [];
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const workoutCards = document.querySelectorAll('.workout-card');
+            const startBtn = document.getElementById('startBtn');
+            const selectionSummary = document.getElementById('selectionSummary');
+            const selectedWorkoutText = document.getElementById('selectedWorkout');
+            
+            workoutCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const workoutType = this.dataset.workout;
+                    
+                    // Toggle selection
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                        selectedWorkouts = selectedWorkouts.filter(w => w !== workoutType);
+                    } else {
+                        this.classList.add('selected');
+                        selectedWorkouts.push(workoutType);
+                    }
+                    
+                    // Update UI
+                    updateSelectionDisplay();
+                    
+                    // Handle custom workout input
+                    if (workoutType === 'custom' && this.classList.contains('selected')) {
+                        setTimeout(() => {
+                            const input = this.querySelector('.custom-input');
+                            if (input) input.focus();
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Handle custom workout input
+            const customInput = document.querySelector('.custom-input');
+            if (customInput) {
+                customInput.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                
+                customInput.addEventListener('input', function() {
+                    updateSelectionDisplay();
+                });
+            }
+        });
+        
+        function updateSelectionDisplay() {
+            const startBtn = document.getElementById('startBtn');
+            const selectionSummary = document.getElementById('selectionSummary');
+            const selectedWorkoutText = document.getElementById('selectedWorkout');
+            
+            if (selectedWorkouts.length > 0) {
+                startBtn.disabled = false;
+                selectionSummary.classList.add('visible');
+                
+                let displayText = selectedWorkouts.map(workout => {
+                    if (workout === 'custom') {
+                        const customInput = document.querySelector('.custom-input');
+                        const customValue = customInput ? customInput.value.trim() : '';
+                        return customValue || 'Custom Workout';
+                    }
+                    return capitalizeFirst(workout);
+                }).join(', ');
+                
+                selectedWorkoutText.textContent = displayText;
+            } else {
+                startBtn.disabled = true;
+                selectionSummary.classList.remove('visible');
+                selectedWorkoutText.textContent = 'None selected';
+            }
+        }
+        
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+        
+        function startWorkout() {
+            if (selectedWorkouts.length === 0) {
+                alert('Please select at least one workout!');
+                return;
+            }
+            
+            let workoutList = selectedWorkouts.map(workout => {
+                if (workout === 'custom') {
+                    const customInput = document.querySelector('.custom-input');
+                    return customInput ? customInput.value.trim() || 'Custom Workout' : 'Custom Workout';
+                }
+                return capitalizeFirst(workout);
+            }).join(', ');
+            
+            alert(`Starting workout session with: ${workoutList}\n\nGood luck with your workout!`);
+            
+            // In a real app, this would navigate to the timer/workout page
+        }
+        
+        function goBack() {
+            if (confirm('Are you sure you want to go back? Your selections will be lost.')) {
+                alert('Returning to dashboard...');
+                // In a real app, this would navigate back to the dashboard
+            }
+        }
+    </script>
+</body>
+</html>

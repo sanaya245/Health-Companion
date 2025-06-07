@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Companion - Your Fitness Journey Starts Here</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, transparent 60%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            min-width: 150px;
+        }
+        
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: #333;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: transparent;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .auth-section {
+            background: white;
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .auth-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .cta-buttons,
+            .auth-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 250px;
+            }
+            
+            .features-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Welcome to Your Health Companion!</h1>
+                <p class="hero-subtitle">Transform your fitness journey with personalized workouts, smart tracking, and motivation that never stops.</p>
+                
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary pulse" onclick="getStarted()">Get Started Free</a>
+                    <a href="#" class="btn btn-secondary" onclick="learnMore()">Learn More</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features-section">
+            <div class="feature-card">
+                <span class="feature-icon">⏱️</span>
+                <h3 class="feature-title">Smart Timer</h3>
+                <p class="feature-description">Track your workout duration with precision. Start, pause, and record your sessions with our intuitive timer system.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">📅</span>
+                <h3 class="feature-title">Workout Calendar</h3>
+                <p class="feature-description">Plan and visualize your fitness journey. Schedule workouts, track progress, and never miss a training day.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">💪</span>
+                <h3 class="feature-title">Custom Workouts</h3>
+                <p class="feature-description">Choose from preset routines or create your own. From planks to push-ups, tailor your fitness experience.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3 class="feature-title">Progress Tracking</h3>
+                <p class="feature-description">Monitor your improvements over time. View detailed history and celebrate your fitness milestones.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h3 class="feature-title">Goal Setting</h3>
+                <p class="feature-description">Set realistic targets and achieve them step by step. Your personal fitness coach in your pocket.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🔒</span>
+                <h3 class="feature-title">Secure & Private</h3>
+                <p class="feature-description">Your health data is protected with enterprise-level security. Focus on fitness, we'll handle the rest.</p>
+            </div>
+        </div>
+        
+        <div class="auth-section">
+            <h2 class="auth-title">Ready to Transform Your Health?</h2>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-primary" onclick="showSignUp()">Sign Up Now</a>
+                <a href="#" class="btn btn-secondary" onclick="showLogin()">Log In</a>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>&copy; 2025 Health Companion. Your journey to better health starts here.</p>
+            <p>Made with ❤️ for your wellness</p>
+        </footer>
+    </div>
+
+    <script>
+        function getStarted() {
+            if (confirm('Ready to start your fitness journey? This will take you to the sign-up page.')) {
+                alert('Redirecting to Sign Up...');
+                // In a real app, navigate to signup page
+            }
+        }
+        
+        function learnMore() {
+            alert('Learn More section - Here you would see detailed information about features, pricing, testimonials, etc.');
+        }
+        
+        function showSignUp() {
+            alert('Redirecting to Sign Up page...');
+            // In a real app, navigate to signup page
+        }
+        
+        function showLogin() {
+            alert('Redirecting to Log In page...');
+            // In a real app, navigate to login page
+        }
+        
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+            featureCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+                observer
